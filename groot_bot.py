@@ -1,5 +1,6 @@
 from fbchat import Client, log
 from fbchat.models import *
+import credentials
 
 class Groot(Client):
     def onMessage(self, author_id = None, message_object = None, thread_id = None, thread_type = ThreadType.USER, **kwargs):
