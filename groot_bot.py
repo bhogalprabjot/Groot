@@ -6,10 +6,10 @@ import credentials
 class Groot(Client):
 
     def apiaiCon(self):
-        self.CLIENT_ACCESS_TOKEN = "7f790c9c5d11467493162773c9196204"
+        self.CLIENT_ACCESS_TOKEN = "7f790c9c5d11467493162773c9196204 "
         self.ai = apiai.ApiAI(self.CLIENT_ACCESS_TOKEN)
         self.request = self.ai.text_request()
-        self.request.lang = 'de'
+        self.request.lang = 'en '
         self.request.session_id = "<SESSION ID, UNIQUE FOR EACH USER>"
 
 
@@ -22,16 +22,17 @@ class Groot(Client):
 
         msgText = message_object.text
 
-        self.request.query = msgtText
+        self.request.query = msgText
 
-        response = self.request.getResponse()
+        response = self.request.getresponse()
 
-        reader = codecs.getdecoder("utf-8")
-        obj = json.load(reader(response))
+        obj = json.load(response)
 
         # reply = 'Hoi!'
 
         reply = obj['result']['fulfillment']['speech']
+
+        # print(reply)
 
         if author_id != self.uid:
             self.send(Message(text = reply), thread_id = thread_id, thread_type = thread_type)
